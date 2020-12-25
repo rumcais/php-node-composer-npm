@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sshpass -e scp -o StrictHostKeyChecking=no $@
