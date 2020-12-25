@@ -56,6 +56,9 @@ RUN BUILDDEPS=" \
     && pecl install memcached redis \
     && docker-php-ext-enable memcached.so redis.so \
 
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/*\
+    && rm -rf /var/cache/apt/*
 
 # Match system timezone and set up PHP
 RUN rm /etc/localtime \
@@ -76,13 +79,18 @@ ENV PATH=$PATH:/root/composer/vendor/bin COMPOSER_ALLOW_SUPERUSER=1
 # RUN composer global require hirak/prestissimo
 
 
-# Add local scripts
 COPY deploy-nette-ftp.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/deploy-nette-ftp.sh
 COPY replace-symlinks.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/replace-symlinks.sh
 COPY templater /usr/local/bin/
+RUN chmod +x /usr/local/bin/templater
 COPY sshx /usr/local/bin/
+RUN chmod +x /usr/local/bin/sshx
 COPY scpx /usr/local/bin/
+RUN chmod +x /usr/local/bin/scpx
 COPY rsyncx /usr/local/bin/
+RUN chmod +x /usr/local/bin/rsyncx
 
 
 
