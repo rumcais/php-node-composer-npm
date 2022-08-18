@@ -5,6 +5,7 @@ if [ $# -lt 5 ]; then
    exit 1
 fi
 
+
 FTP_HOST=$1
 FTP_USER=$2
 FTP_PASS=$3
